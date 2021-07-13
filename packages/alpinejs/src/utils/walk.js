@@ -1,3 +1,8 @@
+/**
+ * 遍历节点树, 并对每个节点执行指定操作
+ * @param {Element} el HTML 元素, 要遍历的节点
+ * @param {function} callback 要对节点执行的操作
+ */
 export function walk(el, callback) {
     if (el instanceof ShadowRoot) {
         Array.from(el.children).forEach(el => walk(el, callback))

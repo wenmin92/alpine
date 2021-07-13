@@ -12,6 +12,10 @@ export function disableEffectScheduling(callback) {
     shouldSchedule = true
 }
 
+/**
+ * 设置响应引擎
+ * @param {Object} engine 默认使用 @vue/reactivity, 传入一个对象, {reactive, effect, release, raw}
+ */
 export function setReactivityEngine(engine) {
     reactive = engine.reactive
     release = engine.release
@@ -27,6 +31,11 @@ export function setReactivityEngine(engine) {
 
 export function overrideEffect(override) { effect = override }
 
+/**
+ * 元素绑定的效果
+ * @param {Element} el HTML 元素
+ * @returns 
+ */
 export function elementBoundEffect(el) {
     let cleanup = () => {}
 

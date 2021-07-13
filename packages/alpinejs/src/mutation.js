@@ -2,14 +2,26 @@ let onAttributeAddeds = []
 let onElRemoveds = []
 let onElAddeds = []
 
+/**
+ * 钩子: 添加元素时
+ * @param {function} callback 
+ */
 export function onElAdded(callback) {
     onElAddeds.push(callback)
 }
 
+/**
+ * 钩子: 删除元素时
+ * @param {function} callback 
+ */
 export function onElRemoved(callback) {
     onElRemoveds.push(callback)
 }
 
+/**
+ * 钩子: 添加属性时
+ * @param {function} callback 
+ */
 export function onAttributesAdded(callback) {
     onAttributeAddeds.push(callback)
 }

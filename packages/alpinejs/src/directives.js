@@ -13,12 +13,28 @@ export function setPrefix(newPrefix) {
     prefixAsString = newPrefix
 }
 
+/**
+ * 所有注册的指令处理器
+ */
 let directiveHandlers = {}
 
+
+/**
+ * 注册指令类型
+ * @param {string} name 指令类型名称
+ * @param {function} callback 回调
+ */
 export function directive(name, callback) {
     directiveHandlers[name] = callback
 }
 
+/**
+ * 获取并解析某个元素中所有指令, 返回相应的指令处理器
+ * @param {Element}} el HTML 元素
+ * @param {Attribute} attributes HTML 元素属性
+ * @param {*} originalAttributeOverride 未知
+ * @returns 指令处理器数组
+ */
 export function directives(el, attributes, originalAttributeOverride) {
     let transformedAttributeMap = {}
 
@@ -50,6 +66,12 @@ export function deferHandlingDirectives(callback) {
     stopDeferring()
 }
 
+/**
+ * 获取指令对应的处理器, 并扩展处理器
+ * @param {Element} el HTML 元素
+ * @param {Directive} directive 指令对象 {type: "data", original: "x-data", expression: "{ open: false}", modifier: [], value: null}
+ * @returns 经过扩展的处理器
+ */
 export function getDirectiveHandler(el, directive) {
     let noop = () => {}
 
