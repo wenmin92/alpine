@@ -50,13 +50,22 @@ export function directives(el, attributes, originalAttributeOverride) {
 }
 
 let isDeferringHandlers = false
-let directiveHandlerStack = []
+let directiveHandlerStacks = new Map
+let currentHandlerStackKey = Symbol()
 
 export function deferHandlingDirectives(callback) {
     isDeferringHandlers = true
 
+    let key = Symbol()
+
+    currentHandlerStackKey = key
+
+    directiveHandlerStacks.set(key, [])
+
     let flushHandlers = () => {
-        while (directiveHandlerStack.length) directiveHandlerStack.shift()()
+        while (directiveHandlerStacks.get(key).length) directiveHandlerStacks.get(key).shift()()
+
+        directiveHandlerStacks.delete(key)
     }
 
     let stopDeferring = () => { isDeferringHandlers = false; flushHandlers() }
@@ -104,7 +113,7 @@ export function getDirectiveHandler(el, directive) {
 
         handler = handler.bind(handler, el, directive, utilities)
 
-        isDeferringHandlers ? directiveHandlerStack.push(handler) : handler()
+        isDeferringHandlers ? directiveHandlerStacks.get(currentHandlerStackKey).push(handler) : handler()
     }
 
     fullHandler.runCleanups = doCleanup
