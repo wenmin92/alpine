@@ -21,8 +21,7 @@ export function start() {
     })
 
     // 是否为非嵌套在根元素下的元素(即顶层元素)
-    let outNestedComponents = el => ! closestRoot(el.parentNode || closestRoot(el))
-
+    let outNestedComponents = el => ! closestRoot(el.parentElement)
     Array.from(document.querySelectorAll(allSelectors()))
         .filter(outNestedComponents) // 找出非嵌套元素(即顶层元素)
         .forEach(el => {
@@ -70,6 +69,8 @@ export function addInitSelector(selectorCallback) { initSelectorCallbacks.push(s
  * @returns 根元素(拥有x-root属性的元素)或 undefined
  */
 export function closestRoot(el) {
+    if (!el) return
+
     if (rootSelectors().some(selector => el.matches(selector))) return el
 
     if (! el.parentElement) return
