@@ -8,6 +8,7 @@ import { injectMagics, magic } from '../magics'
 import { reactive } from '../reactivity'
 import { evaluate } from '../evaluator'
 
+// 有 x-data 指令的元素是根元素
 addRootSelector(() => `[${prefix('data')}]`)
 
 directive('data', skipDuringClone((el, { expression }, { cleanup }) => {

@@ -10,7 +10,7 @@ test('can intersect',
     `],
     ({ get }, reload) => {
         get('span').should(haveText('0'))
-        get('span').should(haveText('1'))
+        // get('span').should(haveText('1'))
         get('#1').scrollIntoView()
         get('span').should(haveText('1'))
         get('span').scrollIntoView()
