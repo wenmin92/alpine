@@ -102,7 +102,7 @@ export function isRoot(el) {
 export function initTree(el, walker = walk) {
     deferHandlingDirectives(() => {
         walker(el, (el, skip) => {
-            directives(el, el.attributes).forEach(handle => handle())
+            directives(el, el.attributes).forEach(handle => handle()) // Element.attributes 是一个 NamedNodeMap, 用于表示 Attr 对象的集合. 参考: https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes
 
             el._x_ignore && skip() // 跳过 x-ignore 元素的子元素
         })
