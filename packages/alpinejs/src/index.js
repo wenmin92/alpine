@@ -35,6 +35,12 @@ Alpine.setEvaluator(normalEvaluator)
  * This is the reactivity core of Alpine. It's the part of
  * Alpine that triggers an element with x-text="message"
  * to update its inner text when "message" is changed.
+ * 
+ * reactive: 接收一个对象作为参数，并返回该对象的代理对象
+ * effect: 定义副作用函数. 副作用函数内的响应式数据会与副作用函数之间建立联系, 即所谓的依赖收集, 当响应式数据变化之后, 会导致副作用函数重新执行
+ * stop: 停止一个副作用. 后续对数据的变更不会触发副作用函数的重新执行
+ * toRaw: 接收代理对象作为参数，并获取原始对象
+ * 参考: [深入理解 Vue3 Reactivity API - 知乎](https://zhuanlan.zhihu.com/p/146097763)
  */
 import { reactive, effect, stop, toRaw } from '@vue/reactivity'
 

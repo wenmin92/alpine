@@ -3,6 +3,10 @@ export function scope(node) {
     return mergeProxies(closestDataStack(node))
 }
 
+/**
+ * 向节点添加作用域
+ * x-data.js, x-for.js, x-if.js 中调用
+ */
 export function addScopeToNode(node, data, referenceNode) {
     node._x_dataStack = [data, ...closestDataStack(referenceNode || node)]
 
@@ -23,6 +27,9 @@ export function refreshScope(element, scope) {
     })
 }
 
+/**
+ * 查找节点的最近 dataStack
+ */
 export function closestDataStack(node) {
     if (node._x_dataStack) return node._x_dataStack
 

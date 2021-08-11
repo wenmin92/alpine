@@ -21,6 +21,11 @@ export function initInterceptors(data) {
     return recurse(data)
 }
 
+/**
+ * [PUBLIC]
+ * 
+ * @param {*} mutateObj 
+ */
 export function interceptor(callback, mutateObj = () => {}) {
     let obj = {
         initialValue: undefined,

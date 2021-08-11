@@ -1,6 +1,14 @@
 import { closestDataStack, mergeProxies } from './scope'
 import { injectMagics } from './magics'
 
+/**
+ * [PUBLIC]
+ * 
+ * @param {*} el 
+ * @param {*} expression 
+ * @param {*} extras 
+ * @returns 
+ */
 export function evaluate(el, expression, extras = {}) {
     let result
 
@@ -9,22 +17,39 @@ export function evaluate(el, expression, extras = {}) {
     return result
 }
 
+/**
+ * [PUBLIC] 调用 eval 器执行表达式
+ * 
+ * @param  {...any} args 
+ * @returns 
+ */
 export function evaluateLater(...args) {
     return theEvaluatorFunction(...args)
 }
 
+/**
+ * eval 器
+ */
 let theEvaluatorFunction = normalEvaluator
 
+/**
+ * [PUBLIC] 设置 eval 器
+ * 
+ * @param {*} newEvaluator 
+ */
 export function setEvaluator(newEvaluator) {
     theEvaluatorFunction = newEvaluator
 }
 
+/**
+ * 默认 eval 器 
+ */
 export function normalEvaluator(el, expression) {
     let overriddenMagics = {}
 
-    injectMagics(overriddenMagics, el)
+    injectMagics(overriddenMagics, el) // 注入 magics
 
-    let dataStack = [overriddenMagics, ...closestDataStack(el)]
+    let dataStack = [overriddenMagics, ...closestDataStack(el)] // magics + 作用域数据
 
     if (typeof expression === 'function') {
         return generateEvaluatorFromFunction(dataStack, expression)
@@ -35,6 +60,9 @@ export function normalEvaluator(el, expression) {
     return tryCatch.bind(null, el, expression, evaluator)
 }
 
+/**
+ * [高阶函数]
+ */
 export function generateEvaluatorFromFunction(dataStack, func) {
     return (receiver = () => {}, { scope = {}, params = [] } = {}) => {
         let result = func.apply(mergeProxies([scope, ...dataStack]), params)

@@ -27,11 +27,11 @@ export function onAttributesAdded(callback) {
 }
 
 /**
- * 钩子: 注册元素属性删除时的清理回调; directives.js#getDirectiveHandler() 中调用
+ * 钩子: 注册元素属性删除时的清理器; directives.js#getDirectiveHandler() 中调用
  * 
  * @param {Element} el 发生属性移除的元素
  * @param {String} name 移除的属性
- * @param {Function} callback 属性删除时, 执行的清理回调
+ * @param {Function} callback 属性删除时, 执行的清理器
  */
 export function onAttributeRemoved(el, name, callback) {
     if (!el._x_attributeCleanups) el._x_attributeCleanups = {}
@@ -41,13 +41,13 @@ export function onAttributeRemoved(el, name, callback) {
 }
 
 /**
- * 属性删除后, 执行注册的清理回调, 执行完成后, 删除注册信息
+ * 属性删除后, 执行注册的清理器, 执行完成后, 删除注册信息
  * 
  * @param {Element} el 所在元素
  * @param {String[]} names 属性名数组
  */
 export function cleanupAttributes(el, names) {
-    if (!el._x_attributeCleanups) return // 没有注册清理回调, 跳过
+    if (!el._x_attributeCleanups) return // 没有注册清理器, 跳过
 
     Object.entries(el._x_attributeCleanups).forEach(([name, value]) => {
         (names === undefined || names.includes(name)) && value.forEach(i => i())

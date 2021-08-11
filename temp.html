@@ -10,12 +10,12 @@
 </head>
 
 <body>
-    <div x-data="{ open: false }">
-        <button @click="$refs.test.setAttribute('x-text', '0'); $refs.test.setAttribute('name', '\'test\'');">Toggle</button>
+    <div x-data x-text="'text'">
+        <!-- <button @click="$refs.test.setAttribute('x-text', '0'); $refs.test.setAttribute('name', '\'test\'');">Toggle</button>
 
         <span x-ref="test">
             Content...
-        </span>
+        </span> -->
     </div>
 </body>
 
